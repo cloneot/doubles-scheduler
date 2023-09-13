@@ -19,22 +19,22 @@ function dlas(f, mutate, initial, maxIdleIters = Number.MAX_SAFE_INTEGER) {
 		let prvF = curF;
 
 		let newPos = incMod(curPos, 3);
-		if(newPos === minPos) newPos = incMod(newPos, 3);
+		if (newPos === minPos) newPos = incMod(newPos, 3);
 
 		S[newPos] = S[curPos].clone();
 		mutate(S[newPos]);
 		newF = f(S[newPos]);
-		if(newF < minF) {
+		if (newF < minF) {
 			idleIters = 0;
 			minPos = newPos;
 			minF = newF;
 		}
-		if(newF === curF || newF < Math.max(...fitness)) {
+		if (newF === curF || newF < Math.max(...fitness)) {
 			curPos = newPos;
 			curF = newF;
 		}
 
-		if(curF > fitness[k] || (curF < fitness[k] && curF < prvF)) {
+		if (curF > fitness[k] || (curF < fitness[k] && curF < prvF)) {
 			fitness[k] = curF;
 		}
 		k = incMod(k, LEN);

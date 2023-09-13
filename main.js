@@ -2,7 +2,7 @@ const impoConst = 15 ** 4;
 const sexDiffConst = 5 ** 4;
 
 function calcPerformance(rating1, rating2) {
-	if(rating1 > rating2) {
+	if (rating1 > rating2) {
 		const tmp = rating1;
 		rating1 = rating2;
 		rating2 = tmp;
@@ -19,10 +19,14 @@ function f(state) {
 	for (let i = 0; i < state.timeNumber; ++i) {
 		for (let j = 0; j < state.courtNumber; ++j) {
 			const performance1 = calcPerformance(
-				...state.matches[i][j].group1.map((id) => state.players[id].rating)
+				...state.matches[i][j].group1.map(
+					(id) => state.players[id].rating
+				)
 			);
 			const performance2 = calcPerformance(
-				...state.matches[i][j].group2.map((id) => state.players[id].rating)
+				...state.matches[i][j].group2.map(
+					(id) => state.players[id].rating
+				)
 			);
 			// console.log(performance1, performance2);
 			const diff = performance1 - performance2;
@@ -34,20 +38,18 @@ function f(state) {
 	let impoCnt = 0;
 	for (const x of state.matches) {
 		for (let i = 0; i < state.courtNumber; ++i) {
-			if(x[i].group1[0] === x[i].group1[1])	impoCnt += 1;
-			if(x[i].group2[0] === x[i].group2[1])	impoCnt += 1;
+			if (x[i].group1[0] === x[i].group1[1]) impoCnt += 1;
+			if (x[i].group2[0] === x[i].group2[1]) impoCnt += 1;
 			for (let j = i + 1; j < state.courtNumber; ++j) {
 				for (const p of x[i].group1) {
 					for (const q of x[j].group1) {
-						if (p !== q)
-							continue;
+						if (p !== q) continue;
 						impoCnt += 1;
 					}
 				}
 				for (const p of x[i].group2) {
 					for (const q of x[j].group2) {
-						if (p !== q)
-							continue;
+						if (p !== q) continue;
 						impoCnt += 1;
 					}
 				}
@@ -118,14 +120,26 @@ function main(input) {
 	const [courtNumber, timeNumber, players] = parseInput(input);
 
 	// validate input
-	const team1GameCnt = players.reduce((acc, cur) => acc + (cur.team === 1)*cur.gameCnt, 0);
-	const team2GameCnt = players.reduce((acc, cur) => acc + (cur.team === 2)*cur.gameCnt, 0);
-	if(team1GameCnt !== team2GameCnt) {
-		alert(`${team1GameCnt}(team1 game count) != ${team2GameCnt}(team2 game count)`);
+	const team1GameCnt = players.reduce(
+		(acc, cur) => acc + (cur.team === 1) * cur.gameCnt,
+		0
+	);
+	const team2GameCnt = players.reduce(
+		(acc, cur) => acc + (cur.team === 2) * cur.gameCnt,
+		0
+	);
+	if (team1GameCnt !== team2GameCnt) {
+		alert(
+			`${team1GameCnt}(team1 game count) != ${team2GameCnt}(team2 game count)`
+		);
 		return;
 	}
-	if(team1GameCnt + team2GameCnt !== courtNumber*timeNumber*4) {
-		alert(`${team1GameCnt+team2GameCnt}(team1+team2 game count) != ${courtNumber*timeNumber*4}(total seat number)`);
+	if (team1GameCnt + team2GameCnt !== courtNumber * timeNumber * 4) {
+		alert(
+			`${team1GameCnt + team2GameCnt}(team1+team2 game count) != ${
+				courtNumber * timeNumber * 4
+			}(total seat number)`
+		);
 		return;
 	}
 
@@ -139,7 +153,7 @@ function main(input) {
 	console.group("dlas start");
 	for (let i = 0; i < 256; ++i) {
 		const [state, cost] = dlas(f, mutate, initState, 5000);
-		console.log(`${i+1}/256`);
+		console.log(`${i + 1}/256`);
 		if (cost < bestCost) {
 			bestCost = cost;
 			bestState = state.clone();

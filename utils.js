@@ -105,17 +105,25 @@ function addDownloadBtn(state) {
 		.fill(null)
 		.map(() => new Array(1 + 2 * state.courtNumber).fill(""));
 
-	for(let i = 0; i < state.courtNumber; ++i) {
-		table[0][1 + 2*i] = `court ${i+1}`;
+	for (let i = 0; i < state.courtNumber; ++i) {
+		table[0][1 + 2 * i] = `court ${i + 1}`;
 	}
 	for (let i = 0; i < state.timeNumber; ++i) {
-		table[1 + 2*i][0] = `time ${i+1}`;
-		for(let j = 0; j < state.courtNumber; ++j) {
+		table[1 + 2 * i][0] = `time ${i + 1}`;
+		for (let j = 0; j < state.courtNumber; ++j) {
 			const match = state.matches[i][j];
-			table[1 + 2*i][1 + 2*j] = `${state.players[match.group1[0]].name}`;
-			table[1 + 2*i + 1][1 + 2*j] = `${state.players[match.group1[1]].name}`;
-			table[1 + 2*i][1 + 2*j + 1] = `${state.players[match.group2[0]].name}`;
-			table[1 + 2*i + 1][1 + 2*j + 1] = `${state.players[match.group2[1]].name}`;
+			table[1 + 2 * i][1 + 2 * j] = `${
+				state.players[match.group1[0]].name
+			}`;
+			table[1 + 2 * i + 1][1 + 2 * j] = `${
+				state.players[match.group1[1]].name
+			}`;
+			table[1 + 2 * i][1 + 2 * j + 1] = `${
+				state.players[match.group2[0]].name
+			}`;
+			table[1 + 2 * i + 1][1 + 2 * j + 1] = `${
+				state.players[match.group2[1]].name
+			}`;
 		}
 	}
 
