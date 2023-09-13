@@ -147,8 +147,9 @@ function main(input) {
 	}
 	console.groupEnd();
 
-	// log best solution
+	// save best solution
 	console.log(`best cost: ${bestCost}`);
 	console.log(`average cost: ${bestCost / (courtNumber * timeNumber)}`);
-	logState(bestState);
+	showState(bestState);
+	addDownloadBtn(bestState);
 }

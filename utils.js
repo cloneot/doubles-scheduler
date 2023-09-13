@@ -72,27 +72,56 @@ function parseInput(input) {
 	return [courtNumber, timeNumber, players];
 }
 
-function logState(state) {
-	console.group("log state");
+function showState(state) {
+	// print to div#result
+	const result = document.getElementById("result");
+	result.innerHTML = "";
 	for (let time = 0; time < state.timeNumber; ++time) {
-		console.log("time: " + time);
+		const timeDiv = document.createElement("div");
+		timeDiv.classList.add("time");
+		timeDiv.innerHTML = `time: ${time}`;
+		result.appendChild(timeDiv);
 		for (const match of state.matches[time]) {
-			console.log(
-				state.players[match.group1[0]].name +
-					" " +
-					state.players[match.group1[1]].name +
-					" " +
-					calcPerformance(state.players[match.group1[0]].rating,
-						state.players[match.group1[1]].rating) +
-					" vs " +
-					state.players[match.group2[0]].name +
-					" " +
-					state.players[match.group2[1]].name +
-					" " +
-					calcPerformance(state.players[match.group2[0]].rating,
-						state.players[match.group2[1]].rating)
-			);
+			const matchDiv = document.createElement("div");
+			matchDiv.classList.add("match");
+			matchDiv.innerHTML = `${state.players[match.group1[0]].name} ${
+				state.players[match.group1[1]].name
+			} ${calcPerformance(
+				state.players[match.group1[0]].rating,
+				state.players[match.group1[1]].rating
+			)} vs ${state.players[match.group2[0]].name} ${
+				state.players[match.group2[1]].name
+			} ${calcPerformance(
+				state.players[match.group2[0]].rating,
+				state.players[match.group2[1]].rating
+			)}`;
+			result.appendChild(matchDiv);
 		}
 	}
-	console.groupEnd();
+}
+
+function addDownloadBtn(state) {
+	const table = new Array(1 + 2 * state.timeNumber)
+		.fill(null)
+		.map(() => new Array(1 + 2 * state.courtNumber).fill(""));
+
+	for(let i = 0; i < state.courtNumber; ++i) {
+		table[0][1 + 2*i] = `court ${i+1}`;
+	}
+	for (let i = 0; i < state.timeNumber; ++i) {
+		table[1 + 2*i][0] = `time ${i+1}`;
+		for(let j = 0; j < state.courtNumber; ++j) {
+			const match = state.matches[i][j];
+			table[1 + 2*i][1 + 2*j] = `${state.players[match.group1[0]].name}`;
+			table[1 + 2*i + 1][1 + 2*j] = `${state.players[match.group1[1]].name}`;
+			table[1 + 2*i][1 + 2*j + 1] = `${state.players[match.group2[0]].name}`;
+			table[1 + 2*i + 1][1 + 2*j + 1] = `${state.players[match.group2[1]].name}`;
+		}
+	}
+
+	const content = "\uFEFF" + table.map((row) => row.join(",")).join("\n");
+	let blob = new Blob([content], { type: "text/csv;charset=utf-8" });
+
+	let a = document.querySelector("#download");
+	a.href = URL.createObjectURL(blob);
 }
