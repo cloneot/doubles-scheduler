@@ -145,21 +145,21 @@ function main(input) {
 
 	// generate initial state
 	let initState = new State(courtNumber, timeNumber, players);
-	console.log(initState);
+	// console.log(initState);
 
 	// dlas
 	let bestState = initState.clone();
 	let bestCost = f(bestState);
-	console.group("dlas start");
+	// console.group("dlas start");
 	for (let i = 0; i < 256; ++i) {
 		const [state, cost] = dlas(f, mutate, initState, 5000);
-		console.log(`${i + 1}/256`);
+		// console.log(`${i + 1}/256`);
 		if (cost < bestCost) {
 			bestCost = cost;
 			bestState = state.clone();
 		}
 	}
-	console.groupEnd();
+	// console.groupEnd();
 
 	// save best solution
 	console.log(`best cost: ${bestCost}`);
