@@ -69,7 +69,7 @@ class State {
 			this.matches = matches.map((x) => x.map((match) => match.clone()));
 			return;
 		}
-		console.group("state constructor:");
+		// console.group("state constructor:");
 
 		const team1 = [];
 		const team2 = [];
@@ -102,7 +102,7 @@ class State {
 		}
 		// console.info(this.matches);
 
-		console.groupEnd();
+		// console.groupEnd();
 	}
 
 	clone() {

@@ -162,8 +162,8 @@ function main(input) {
 	// console.groupEnd();
 
 	// save best solution
-	console.log(`best cost: ${bestCost}`);
-	console.log(`average cost: ${bestCost / (courtNumber * timeNumber)}`);
+	// console.log(`best cost: ${bestCost}`);
+	// console.log(`average cost: ${bestCost / (courtNumber * timeNumber)}`);
 	showState(bestState);
 	addDownloadBtn(bestState);
 }
