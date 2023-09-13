@@ -122,6 +122,10 @@ function addDownloadBtn(state) {
 	const content = "\uFEFF" + table.map((row) => row.join(",")).join("\n");
 	let blob = new Blob([content], { type: "text/csv;charset=utf-8" });
 
-	let a = document.querySelector("#download");
+	let a = document.createElement("a");
 	a.href = URL.createObjectURL(blob);
+	a.download = "schedule.csv";
+	a.innerHTML = "download";
+
+	document.querySelector("#download-container").appendChild(a);
 }
