@@ -139,7 +139,6 @@ function addDownloadBtn(state) {
 	a.innerHTML = "download";
 
 	const container = document.querySelector("#download-container");
-	container.replaceChildren([]);
 	container.appendChild(a);
 }
 

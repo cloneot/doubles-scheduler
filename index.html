@@ -24,6 +24,12 @@
 
 			const fileSelector = document.getElementById("file-selector");
 			fileSelector.addEventListener("change", (event) => {
+				document.querySelector("#progress").innerHTML = "";
+				document.querySelector("#result").innerHTML = "";
+				document
+					.querySelector("#download-container")
+					.replaceChildren([]);
+
 				const fileList = event.target.files;
 				readFile(fileList[0]);
 			});

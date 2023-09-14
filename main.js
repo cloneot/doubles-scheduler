@@ -143,27 +143,34 @@ function main(input) {
 		return;
 	}
 
-	// generate initial state
-	let initState = new State(courtNumber, timeNumber, players);
-	// console.log(initState);
-
 	// dlas
+	let initState = new State(courtNumber, timeNumber, players);
 	let bestState = initState.clone();
 	let bestCost = f(bestState);
-	// console.group("dlas start");
-	for (let i = 0; i < 256; ++i) {
-		const [state, cost] = dlas(f, mutate, initState, 5000);
-		notifyProgress(i + 1, 256);
-		if (cost < bestCost) {
-			bestCost = cost;
-			bestState = state.clone();
+
+	const totalIterations = 256;
+	const chunkSize = 8;
+
+	function doChunk(startIdx) {
+		const endIdx = Math.min(startIdx + chunkSize, totalIterations);
+
+		for (let i = startIdx; i < endIdx; ++i) {
+			const [state, cost] = dlas(f, mutate, initState, 5000);
+			if (cost < bestCost) {
+				bestCost = cost;
+				bestState = state.clone();
+			}
+		}
+
+		notifyProgress(endIdx, totalIterations);
+		if (endIdx < totalIterations) {
+			setTimeout(() => {
+				doChunk(endIdx);
+			});
+		} else {
+			showState(bestState);
+			addDownloadBtn(bestState);
 		}
 	}
-	// console.groupEnd();
-
-	// save best solution
-	// console.log(`best cost: ${bestCost}`);
-	// console.log(`average cost: ${bestCost / (courtNumber * timeNumber)}`);
-	showState(bestState);
-	addDownloadBtn(bestState);
+	doChunk(0);
 }
