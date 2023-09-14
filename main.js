@@ -153,7 +153,7 @@ function main(input) {
 	// console.group("dlas start");
 	for (let i = 0; i < 256; ++i) {
 		const [state, cost] = dlas(f, mutate, initState, 5000);
-		// console.log(`${i + 1}/256`);
+		notifyProgress(i + 1, 256);
 		if (cost < bestCost) {
 			bestCost = cost;
 			bestState = state.clone();

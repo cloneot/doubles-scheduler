@@ -1,5 +1,8 @@
 function shuffle(arr) {
-	arr.sort((a, b) => Math.random() - 0.5);
+	for (let i = arr.length - 1; i > 0; --i) {
+		const j = Math.floor(Math.random() * (i + 1));
+		[arr[i], arr[j]] = [arr[j], arr[i]];
+	}
 }
 
 function string2Sex(str) {
@@ -130,10 +133,17 @@ function addDownloadBtn(state) {
 	const content = "\uFEFF" + table.map((row) => row.join(",")).join("\n");
 	let blob = new Blob([content], { type: "text/csv;charset=utf-8" });
 
-	let a = document.createElement("a");
+	const a = document.createElement("a");
 	a.href = URL.createObjectURL(blob);
 	a.download = "schedule.csv";
 	a.innerHTML = "download";
 
-	document.querySelector("#download-container").appendChild(a);
+	const container = document.querySelector("#download-container");
+	container.replaceChildren([]);
+	container.appendChild(a);
+}
+
+function notifyProgress(progress, total) {
+	const progressDiv = document.querySelector("#progress");
+	progressDiv.innerHTML = `progress: ${progress} / ${total}`;
 }
