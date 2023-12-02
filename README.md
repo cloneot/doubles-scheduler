@@ -4,7 +4,7 @@
 
 ## 사용법
 
-1. https://cloneot.github.io/doubles-scheduler/에 들어간다. 
+1. https://cloneot.github.io/doubles-scheduler/ 에 들어간다. 
 3. `sample_in.csv` 형식으로 이름, 도착 시간, 실력 등의 정보가 담긴 csv 파일을 만들어 업로드한다. 
 4. 기다리면 대진표가 생성된다. 미리보기를 보고, 표 형식으로 다운받고 싶으면 download 링크를 누른다. 
 5. 마음에 들지 않으면 새로고침을 한 후 `2-3`를 반복한다. 
