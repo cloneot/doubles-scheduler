@@ -10,6 +10,17 @@
 5. 마음에 들지 않으면 새로고침을 한 후 `2-3`를 반복한다. 
 
 
+<details>
+    <summary>샘플 입력 파일</summary>
+    <img src="./sample_in.png" height="600px" />
+</details>
+
+<details>
+    <summary>샘플 출력 파일</summary>
+    <img src="./sample_out.png" height="300px" />
+</details>
+
+
 
 ## 커스텀
 
